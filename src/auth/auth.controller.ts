@@ -1,13 +1,18 @@
 import { Body, Controller, Post, HttpCode, HttpStatus } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
+export type IAuthBody = {
+	email: string,
+	password: string,
+}
+
 @Controller('auth')
 export class AuthController {
 	constructor(private authService: AuthService) {}
 
 	@HttpCode(HttpStatus.OK)
 	@Post('login')
-	signIn(@Body() signInDto: Record<string, any>) {
-		return this.authService.signIn(signInDto.email, signInDto.password);
+	signIn(@Body() body: IAuthBody) {
+		return this.authService.signIn(body.email, body.password);
 	}
 }
