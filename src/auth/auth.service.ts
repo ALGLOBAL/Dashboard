@@ -1,6 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { IUser, UsersService } from '../users/users.service';
+import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import * as argon2 from 'argon2';
+import { IUser  } from "../users/types";
 
 export type IAuthResponse = {
 	access_token: string
@@ -15,8 +17,9 @@ export class AuthService {
 		pass: string,
 	): Promise<IAuthResponse> {
 		const user = await this.usersService.findOne(email);
-		if (user?.password !== pass) {
-			throw new UnauthorizedException();
+		const isPasswordValid = await argon2.verify(user.password, pass);
+		if (!isPasswordValid) {
+			throw new UnauthorizedException('Invalid password');
 		}
 		const payload = { sub: user.userId, username: user.email };
 		return {

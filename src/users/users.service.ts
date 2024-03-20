@@ -1,26 +1,22 @@
 import { Injectable } from '@nestjs/common';
-
-// This should be a real class/interface representing a user entity
-export type IUser = {
-	userId: number
-	email: string
-	password: string
-};
+import * as argon2 from 'argon2';
+import { IUser } from "./types";
+import { users } from './dto/users';
 
 @Injectable()
 export class UsersService {
-	private readonly users: IUser[] = [
-		{
-			userId: 1,
-			email: 'test@gmail.com',
-			password: '123456',
-		},
-		{
-			userId: 2,
-			email: 'test1@gmail.com',
-			password: '654321',
-		},
-	];
+	private users: IUser[] = [];
+
+	constructor() {
+		this.fillUsers().then((users) => this.users = users).catch(console.warn);
+	}
+
+	async fillUsers(): Promise<IUser[]> {
+		return await Promise.all(users.map(async (user) => ({
+			...user,
+			password: await argon2.hash(user.password),
+		})));
+	}
 
 	async findOne(email: string): Promise<IUser | undefined> {
 		return this.users.find(user => user.email === email);
