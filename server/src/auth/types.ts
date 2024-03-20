@@ -1,4 +1,5 @@
 import { IsString, IsNotEmpty, IsEmail } from 'class-validator';
+import { IUser } from "../users/types";
 
 export class IAuthBody {
     @IsNotEmpty()
@@ -9,3 +10,8 @@ export class IAuthBody {
     @IsString()
     password: string;
 }
+
+export type IAuthResponse = {
+    access_token: string
+    user: IUser
+};
