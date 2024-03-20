@@ -14,14 +14,19 @@ export class AuthService {
 		pass: string,
 	): Promise<IAuthResponse> {
 		const user = await this.usersService.findOne(email);
+
+		if (!user) {
+			throw new UnauthorizedException('Invalid email');
+		}
+
 		const isPasswordValid = await argon2.verify(user.password, pass);
 		if (!isPasswordValid) {
 			throw new UnauthorizedException('Invalid password');
 		}
-		const payload = { username: user.email, userId: user.userId };
+		const payload = { email: user.email, userId: user.userId };
 		return {
 			access_token: await this.jwtService.signAsync(payload),
-            user,
+			...payload,
 		};
 	}
 }

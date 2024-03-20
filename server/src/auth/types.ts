@@ -13,5 +13,6 @@ export class IAuthBody {
 
 export type IAuthResponse = {
     access_token: string
-    user: IUser
+    email: string,
+    userId: string,
 };
