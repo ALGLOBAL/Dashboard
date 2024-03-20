@@ -1,11 +1,7 @@
-import { Body, Controller, Post, HttpCode, HttpStatus, UseGuards, Get, Request } from '@nestjs/common';
+import { Body, Controller, Post, HttpCode, HttpStatus, UseGuards, Get, Request, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from "./auth.guard";
-
-export type IAuthBody = {
-	email: string,
-	password: string,
-}
+import { IAuthBody } from './types';
 
 @Controller('auth')
 export class AuthController {
@@ -13,7 +9,7 @@ export class AuthController {
 
 	@HttpCode(HttpStatus.OK)
 	@Post('login')
-	signIn(@Body() body: IAuthBody) {
+	signIn(@Body(new ValidationPipe()) body: IAuthBody) {
 		return this.authService.signIn(body.email, body.password);
 	}
 
