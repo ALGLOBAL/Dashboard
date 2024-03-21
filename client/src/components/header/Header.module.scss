@@ -17,6 +17,15 @@
     }
   }
 
+  @media only screen and (max-width: 450px) {
+    padding: 0 25px;
+    h2 {
+      svg {
+        display: none;
+      }
+    }
+  }
+
   :global {
     .ant-menu {
       background-color: transparent !important;
@@ -36,7 +45,7 @@
 }
 
 .topMenu {
-  min-width: 200px;
+  min-width: 70px;
   :global {
     .ant-menu-item-selected {
       color: #ffffff !important;

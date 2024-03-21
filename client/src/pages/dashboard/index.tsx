@@ -4,20 +4,18 @@ import React from "react";
 import { Layout } from "@/layouts/Layout";
 
 import * as Api from "@/api";
-import { FileItem } from "@/api/types/files.types";
+import { Item } from "@/api/types/items.types";
 import { DashboardLayout } from "@/layouts/DashboardLayout";
+import Items from "@/components/items";
 
 interface Props {
-  items: FileItem[];
+  items: Item[];
 }
 
 const DashboardPage: NextPage<Props> = ({ items }) => {
   return (
     <DashboardLayout>
-      {items.map((item: FileItem) => (<div>
-        <span>{item.title}</span>
-        <span>{item.description}</span>
-      </div>))}
+      <Items items={items} />
     </DashboardLayout>
   );
 };
@@ -32,7 +30,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     return { redirect };
   }
 
-  let props: {props: { items: FileItem[] }} = {
+  let data: { props: { items: Item[] } } = {
     props: {
       items: []
     },
@@ -40,12 +38,12 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
   try {
     if (userId) {
-      props.props.items = await Api.files.getAll(userId);
-      return props;
+      data.props.items = await Api.files.getAll(userId);
+      return data;
     }
   } catch (err) {
     console.log(err);
-    return props;
+    return data;
   }
 };
 

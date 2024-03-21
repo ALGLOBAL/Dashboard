@@ -5,7 +5,7 @@ import { Button, notification, Form, Input } from "antd";
 import { LoginFormDTO } from "@/api/types/auth.types";
 import { auth } from "@/api";
 
-export const LoginForm: React.FC = () => {
+const LoginForm: React.FC = () => {
   const onSubmit = async (values: LoginFormDTO) => {
     try {
       const { access_token, userId } = await auth.login(values);
@@ -24,7 +24,7 @@ export const LoginForm: React.FC = () => {
       });
       location.href = "/dashboard";
     } catch (err) {
-      console.warn("LoginForm", err);
+      console.warn("Index", err);
 
       notification.error({
         message: "Error",
@@ -78,3 +78,5 @@ export const LoginForm: React.FC = () => {
     </div>
   );
 };
+
+export default LoginForm;

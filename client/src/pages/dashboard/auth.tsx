@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { LoginForm } from "@/components/auth/LoginForm";
+import LoginForm from "@/components/auth";
 
 const AuthPage: NextPage = () => {
   return (

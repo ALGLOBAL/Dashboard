@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 import * as Api from "@/api";
 
-export const Header: React.FC = () => {
+const Header: React.FC = () => {
   const router = useRouter();
   const selectedMenu = router.pathname;
 
@@ -43,3 +43,5 @@ export const Header: React.FC = () => {
     </Layout.Header>
   );
 };
+
+export default Header;

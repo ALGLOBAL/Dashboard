@@ -45,29 +45,41 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
-## Test
+## REST API
 
 ```bash
-# unit tests
-$ yarn run test
+# API_URL
+http://localhost:3030
 
-# e2e tests
-$ yarn run test:e2e
+# LOGIN
+POST auth/login
+Body = {
+  email: string;
+  password: string;
+}
+Response = {
+    access_token: string
+    email: string,
+    userId: string,
+};
 
-# test coverage
-$ yarn run test:cov
+# PROFILE
+GET auth/profile
+authorization header = Bearer Token (access_token)
+Response = {
+    access_token: string
+    email: string,
+    userId: string,
+};
+
+
+# DASHBOARD ITEMS
+GET dashboard/:id (userId)
+authorization header = Bearer Token (access_token)
+Response = {
+    title: string
+    description: string
+    userId: string
+}[];
+
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

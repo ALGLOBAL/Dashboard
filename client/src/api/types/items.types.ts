@@ -1,4 +1,4 @@
-export interface FileItem {
+export interface Item {
   title: string
   description: string
   userId: string
