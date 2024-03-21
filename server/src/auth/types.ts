@@ -12,7 +12,7 @@ export class IAuthBody {
 }
 
 export type IAuthResponse = {
-    access_token: string
-    email: string,
-    userId: string,
+    access_token: string;
+    email: string;
+    userId: string;
 };
