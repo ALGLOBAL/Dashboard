@@ -18,7 +18,7 @@ $ yarn run start:prod
 ```
 
 ```bash
-#CLIETN
+# CLIETN
 npm run dev
 # or
 yarn dev
