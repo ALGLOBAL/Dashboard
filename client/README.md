@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, run the Nest.js server from folder ./server (look on README.md) and after run the client development server:
 
 ```bash
 npm run dev
