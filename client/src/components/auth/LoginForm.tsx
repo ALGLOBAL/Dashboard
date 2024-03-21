@@ -22,10 +22,7 @@ export const LoginForm: React.FC = () => {
       setCookie(null, "_user_id", userId, {
         path: "/",
       });
-
-
-
-      // location.href = "/dashboard";
+      location.href = "/dashboard";
     } catch (err) {
       console.warn("LoginForm", err);
 
@@ -40,6 +37,7 @@ export const LoginForm: React.FC = () => {
   return (
     <div className={styles.formBlock}>
       <Form
+          className={styles.form}
         name="basic"
         labelCol={{
           span: 8,
@@ -71,17 +69,11 @@ export const LoginForm: React.FC = () => {
         >
           <Input.Password />
         </Form.Item>
-
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
+        <div className={styles.buttonBlock}>
           <Button type="primary" htmlType="submit">
             Log in
           </Button>
-        </Form.Item>
+        </div>
       </Form>
     </div>
   );

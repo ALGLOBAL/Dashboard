@@ -1,11 +1,8 @@
 import React from "react";
 import styles from "@/styles/Home.module.scss";
 import { useRouter } from "next/router";
-import { UploadButton } from "@/components/UploadButton";
 import { Menu } from "antd";
 import {
-  DeleteOutlined,
-  FileImageOutlined,
   FileOutlined,
 } from "@ant-design/icons";
 
@@ -18,7 +15,6 @@ export const DashboardLayout: React.FC<React.PropsWithChildren> = ({
   return (
     <main className={styles.dashboardContainer}>
       <div className={styles.sidebar}>
-        <UploadButton />
         <Menu
           className={styles.menu}
           mode="inline"
@@ -27,20 +23,8 @@ export const DashboardLayout: React.FC<React.PropsWithChildren> = ({
             {
               key: `/dashboard`,
               icon: <FileOutlined />,
-              label: `Файлы`,
+              label: `Items`,
               onClick: () => router.push("/dashboard"),
-            },
-            {
-              key: `/dashboard/photos`,
-              icon: <FileImageOutlined />,
-              label: `Фото`,
-              onClick: () => router.push("/dashboard/photos"),
-            },
-            {
-              key: `/dashboard/trash`,
-              icon: <DeleteOutlined />,
-              label: `Корзина`,
-              onClick: () => router.push("/dashboard/trash"),
             },
           ]}
         />

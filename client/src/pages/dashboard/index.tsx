@@ -6,7 +6,6 @@ import { Layout } from "@/layouts/Layout";
 import * as Api from "@/api";
 import { FileItem } from "@/api/types/files.types";
 import { DashboardLayout } from "@/layouts/DashboardLayout";
-import { Files } from "@/modules/Files";
 
 interface Props {
   items: FileItem[];
@@ -15,35 +14,38 @@ interface Props {
 const DashboardPage: NextPage<Props> = ({ items }) => {
   return (
     <DashboardLayout>
-      <Files items={items} withActions />
+      {items.map((item: FileItem) => (<div>
+        <span>{item.title}</span>
+        <span>{item.description}</span>
+      </div>))}
     </DashboardLayout>
   );
 };
 
 DashboardPage.getLayout = (page: React.ReactNode) => {
-  return <Layout title="Dashboard / Главная">{page}</Layout>;
+  return <Layout title="Dashboard/Main">{page}</Layout>;
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const authProps = await checkAuth(ctx);
+  const { redirect, isAuth, userId} = await checkAuth(ctx);
+  if (!isAuth) {
+    return { redirect };
+  }
 
-  if ("redirect" in authProps) {
-    return authProps;
+  let props: {props: { items: FileItem[] }} = {
+    props: {
+      items: []
+    },
   }
 
   try {
-    const items = await Api.files.getAll();
-
-    return {
-      props: {
-        items,
-      },
-    };
+    if (userId) {
+      props.props.items = await Api.files.getAll(userId);
+      return props;
+    }
   } catch (err) {
     console.log(err);
-    return {
-      props: { items: [] },
-    };
+    return props;
   }
 };
 

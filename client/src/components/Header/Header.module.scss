@@ -1,5 +1,5 @@
 .root {
-  background-color: #0071ce !important;
+  background-color: #105387 !important;
 
   h2 {
     color: #fff;
@@ -7,7 +7,6 @@
     position: relative;
     top: -2px;
     font-size: 20px;
-    font-family: "Segoe UI";
     margin-right: 30px;
 
     svg {
@@ -29,8 +28,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1200px;
-  margin: 0 auto;
 }
 
 .headerLeft {
@@ -47,8 +44,4 @@
       border-radius: 0 !important;
     }
   }
-}
-
-.headerRight {
-  cursor: pointer;
 }

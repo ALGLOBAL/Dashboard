@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Avatar, Menu, Popover, Button } from "antd";
+import { Layout, Menu, Button } from "antd";
 import styles from "./Header.module.scss";
 import { CloudOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
@@ -11,10 +11,8 @@ export const Header: React.FC = () => {
   const selectedMenu = router.pathname;
 
   const onClickLogout = () => {
-    if (window.confirm("Вы действительно хотите выйти?")) {
       Api.auth.logout();
       location.href = "/";
-    }
   };
 
   return (
@@ -23,7 +21,7 @@ export const Header: React.FC = () => {
         <div className={styles.headerLeft}>
           <h2>
             <CloudOutlined />
-            Cloud Storage
+            Dashboard
           </h2>
 
           <Menu
@@ -33,24 +31,14 @@ export const Header: React.FC = () => {
             defaultSelectedKeys={[selectedMenu]}
             onSelect={({ key }) => router.push(key)}
             items={[
-              { key: "/dashboard", label: "Главная" },
-              { key: "/dashboard/profile", label: "Профиль" },
+              { key: "/dashboard", label: "Main" },
             ]}
           />
         </div>
 
-        <div className={styles.headerRight}>
-          <Popover
-            trigger="click"
-            content={
-              <Button onClick={onClickLogout} type="primary" danger>
-                Выйти
-              </Button>
-            }
-          >
-            <Avatar>A</Avatar>
-          </Popover>
-        </div>
+          <Button onClick={onClickLogout} type="primary" danger>
+              Sign out
+          </Button>
       </div>
     </Layout.Header>
   );
